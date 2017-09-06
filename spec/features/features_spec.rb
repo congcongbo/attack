@@ -33,4 +33,22 @@ feature 'Attacking' do
     expect(page).not_to have_content 'Dan: 60HP'
     expect(page).to have_content 'Dan: 50HP'
   end
+
+feature 'Switching turns' do
+  context 'seeing the current turn' do
+    scenario 'at the start' do
+      sign_in_and_play
+      expect(page).to have_content "Cong's turn"
+    end
+
+    scenario 'after player 1 attacks' do
+      sign_in_and_play
+      click_button 'Attack!'
+      click_link 'OK'
+      expect(page).to have_content "Dan's turn"
+      expect(page).not_to have_content "Cong's turn"
+    end
+
+  end
+end
 end
